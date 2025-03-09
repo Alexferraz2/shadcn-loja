@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 const CartSideBar = () => {
     return(
         <Sheet>
-            <SheetTrigger>
+            <SheetTrigger asChild>
                 <Button className="flex">
                     <ShoppingCartIcon className="mr-2"/>
                     <p>Carrinho</p>
