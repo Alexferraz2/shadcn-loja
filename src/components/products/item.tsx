@@ -3,6 +3,7 @@
 import { Product } from "@/types/product"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
+import UseCartStore from "@/store/cart-store"
 
 
 type Props = {
@@ -10,8 +11,9 @@ type Props = {
 }
 
 export const ProductItem = ({item}: Props) => {
-    
+    const { upSertCartItem } = UseCartStore(state => state)
     const handleAddButton = () => {
+        upSertCartItem(item, 1)
         toast('Adicionado ao carrinho', {
             description: item.name,
             action: (
@@ -21,6 +23,8 @@ export const ProductItem = ({item}: Props) => {
             ),
         })
     }
+
+
     return (
         <div>
             <div className="rounded-md overflow-hidden">
