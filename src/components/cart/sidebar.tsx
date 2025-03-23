@@ -2,16 +2,16 @@ import { CarrotIcon, ShoppingCartIcon} from "lucide-react"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import UseCartStore from "@/store/cart-store";
+import {UseCartStore} from "@/store/cart-store";
 import { Cart } from "@/types/cart"
 import { CartItem } from "./item";
 
 
 const CartSideBar = () => {
     const {cart} = UseCartStore(state => state)
-
+    
     let subtotal = 0
-    console.log(cart)
+    
     for(let item of cart ) {
         subtotal += item.quantity * item.product.price
     }

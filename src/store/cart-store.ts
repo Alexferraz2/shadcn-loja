@@ -8,15 +8,15 @@ type States = {
 }
 
 type Actions = {
-    upSertCartItem: (product: Product, quantity: number ) => void
+    upsertCartItem: (product: Product, quantity: number ) => void
 }
 
 const initialState: States = {
     cart: []
 }
-const UseCartStore = create<States & Actions>()(set => ({
+export const UseCartStore = create<States & Actions>()(set => ({
     ...initialState,
-    upSertCartItem: (product, quantity) => set(state => {
+    upsertCartItem: (product, quantity) => set(state => {
         let newCart = state.cart;
 
         let productIndex = newCart.findIndex(item  => item.product.id === product.id)
@@ -26,14 +26,11 @@ const UseCartStore = create<States & Actions>()(set => ({
             productIndex = newCart.findIndex(item  => item.product.id === product.id)
         }
 
-        newCart[productIndex].quantity += quantity
+        newCart[productIndex].quantity += quantity;
 
         if(newCart[productIndex].quantity <= 0 ) {
-            newCart = newCart.filter(item => item.product.id ==  product.id )
+            newCart = newCart.filter(item => item.product.id !==  product.id )
         }
         return { ...state, cart: newCart}
     })
 }))
-
-
-export default UseCartStore;
