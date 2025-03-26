@@ -5,9 +5,14 @@ import { Button } from "@/components/ui/button";
 import {UseCartStore} from "@/store/cart-store";
 import { Cart } from "@/types/cart"
 import { CartItem } from "./item";
+import { useState } from "react";
+import { CheckouDialog } from "@/components/checkout/dialog";
+
+
 
 
 const CartSideBar = () => {
+    const [checkoutOpen, setCheckoutOpen] = useState(false)
     const {cart} = UseCartStore(state => state)
     
     let subtotal = 0
@@ -47,12 +52,26 @@ const CartSideBar = () => {
                 <Separator className="my-4"/>
                 <div className="text-center">
                     
-                    <Button disabled={cart.length === 0}>Finalizar compra</Button>
+                    <Button 
+                        onClick={()=> (setCheckoutOpen(true))}
+                        
+                        disabled={cart.length === 0}>
+                            Finalizar compra
+                    </Button>
                     
                     
                 </div>
                 
+                
+
+                
             </SheetContent>
+            <CheckouDialog
+                    open={checkoutOpen}
+                    onOpenChange={setCheckoutOpen}
+                >
+
+            </CheckouDialog>
         </Sheet>
     )
 }
