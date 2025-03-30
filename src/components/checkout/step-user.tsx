@@ -1,6 +1,6 @@
 import { CheckoutSteps } from "@/types/checkout-steps"
 import { Dispatch, SetStateAction } from "react"
-import { Form, useForm } from "react-hook-form"
+import { Form, FormProvider, useForm } from "react-hook-form"
 import { z } from 'zod'
 import { zodResolver} from '@hookform/resolvers/zod'
 import { useCheckoutStore } from "@/store/checkout-store"
@@ -32,7 +32,7 @@ export const StepUser = ({setStep}: Props) => {
         setStep('addres');
     }
     return (
-        <Form {...form}>
+        <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 <FormField
                     control={form.control}
@@ -54,6 +54,6 @@ export const StepUser = ({setStep}: Props) => {
                 />
                 <Button type="submit" variant='outline'>Próximo</Button>
             </form>
-        </Form>
+        </FormProvider>
     )
 }
