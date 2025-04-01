@@ -14,11 +14,14 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-  
+
+import { StatesBrazil } from "@/data/statesBrazil"
 
 type Props = {
     setStep: Dispatch<SetStateAction<CheckoutSteps>>
 }
+
+
 
 const formSchema = z.object({
     street: z.string().min(2, "Preeencha o endereço"),
@@ -31,7 +34,7 @@ const formSchema = z.object({
 
 
 
-export const StepAddres = ({setStep}: Props) => {
+export const StepAddres = ({ setStep }: Props) => {
     const {address, setAddress} = useCheckoutStore(state => state)
 
 
@@ -44,6 +47,8 @@ export const StepAddres = ({setStep}: Props) => {
         setAddress(value);
         setStep('finish');
     }
+    
+
     return (
         <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -132,41 +137,18 @@ export const StepAddres = ({setStep}: Props) => {
                             <FormItem>
                                 <FormLabel>Estado</FormLabel>
                                 <FormControl>
-                                <Select defaultValue={field.value} onValueChange={field.onChange}>
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder="Estado" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="AC">Acre (AC)</SelectItem>
-                                        <SelectItem value="AL">Alagoas (AL)</SelectItem>
-                                        <SelectItem value="AP">Amapá (AP)</SelectItem>
-                                        <SelectItem value="AM">Amazonas (AM)</SelectItem>
-                                        <SelectItem value="BA">Bahia (BA)</SelectItem>
-                                        <SelectItem value="CE">Ceará (CE)</SelectItem>
-                                        <SelectItem value="ES">Espírito Santo (ES)</SelectItem>
-                                        <SelectItem value="GO">Goiás (GO)</SelectItem>
-                                        <SelectItem value="MA">Maranhão (MA)</SelectItem>
-                                        <SelectItem value="MT">Mato Grosso (MT)</SelectItem>
-                                        <SelectItem value="MS">Mato Grosso do Sul (MS)</SelectItem>
-                                        <SelectItem value="MG">Minas Gerais (MG)</SelectItem>
-                                        <SelectItem value="PA">Pará (PA)</SelectItem>
-                                        <SelectItem value="PB">Paraíba (PB)</SelectItem>
-                                        <SelectItem value="PR">Paraná (PR)</SelectItem>
-                                        <SelectItem value="PE">Pernambuco (PE)</SelectItem>
-                                        <SelectItem value="PI">Piauí (PI)</SelectItem>
-                                        <SelectItem value="RJ">Rio de Janeiro (RJ)</SelectItem>
-                                        <SelectItem value="RN">Rio Grande do Norte (RN)</SelectItem>
-                                        <SelectItem value="RS">Rio Grande do Sul (RS)</SelectItem>
-                                        <SelectItem value="RO">Rondônia (RO)</SelectItem>
-                                        <SelectItem value="RR">Roraima (RR)</SelectItem>
-                                        <SelectItem value="SC">Santa Catarina (SC)</SelectItem>
-                                        <SelectItem value="SP">São Paulo (SP)</SelectItem>
-                                        <SelectItem value="SE">Sergipe (SE)</SelectItem>
-                                        <SelectItem value="TO">Tocantins (TO)</SelectItem>
-                                        <SelectItem value="DF">Distrito Federal (DF)</SelectItem>
+                                    <Select defaultValue={field.value} onValueChange={field.onChange}>
+                                        <SelectTrigger className="w-[180px]">
+                                            <SelectValue placeholder="Estado" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {StatesBrazil.map((item) => (
+                                                <SelectItem key={item.id} value={item.value}>
+                                                    {item.name}
+                                                </SelectItem>
+                                            ))}                          
 
-
-                                    </SelectContent>
+                                        </SelectContent>
                                     </Select>
 
                                 </FormControl>
@@ -184,6 +166,9 @@ export const StepAddres = ({setStep}: Props) => {
                 </div>
                 
             </form>
+
         </FormProvider>
+
+
     )
 }

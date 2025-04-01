@@ -13,7 +13,7 @@ export const generateMessage = () => {
 
     return `**Dados do cliente
     Nome: ${name}
-    Endereço: ${address.street} ${address.number} (${address.complement}) ${address.district} ${address.city} ${address.city}${address.state}
+    Endereço: ${address.street} ${address.number} (${address.complement}) ${address.district} ${address.city}/${address.state}
     -------
     **Pedido**
     ${orderproduct.join('\n')}
